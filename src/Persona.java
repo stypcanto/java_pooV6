@@ -43,6 +43,14 @@ public class Persona {
 
     public void inscripcion(){
         System.out.println("Buen dia, mi nombre es "+nombre+" deseo inscribirme a la universidad, tengo "+edad+ "años");
-
     }
+
+
+        // ✅ Nuevo método para practicar lógica
+    public void cumplirAnios(){
+            edad++; // Incrementa la edad en 1
+            System.out.println(nombre + " ha cumplido años. Nueva edad: " + edad);
+        }
+
+
 }

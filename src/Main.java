@@ -6,7 +6,7 @@ public class Main {
         // Usamos el método saludar para mostrar un mensaje
         persona1.saludar(); // Imprime: Hola, soy Carlos tengo 28 años
 
-        // Cambiamos la edad usando el setter
+        // Cambiamos la edad usando el sy mi mainetter
         persona1.setEdad(29);
 
         // Volvemos a saludar con la nueva edad
@@ -30,5 +30,8 @@ public class Main {
 
         Persona persona3 = new Persona("Juan", 25);
     persona3.inscripcion();
+
+        Persona persona4 = new Persona("Maria", 25);
+        persona4.cumplirAnios();
     }
 }
