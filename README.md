@@ -1,111 +1,157 @@
+# 🎓 Sistema de Miembros Universitarios en Java
 
-## 🧠 Fundamentos de Programación Orientada a Objetos (POO)
+Este proyecto es un ejercicio de Programación Orientada a Objetos (POO) en Java. Simula una estructura de miembros universitarios (profesores y estudiantes) utilizando conceptos clave como:
 
-### 🔁 Herencia
-La **herencia** permite que una clase (llamada *subclase*) herede atributos y métodos de otra clase (llamada *superclase*).
-
-- En este proyecto, la clase `Estudiante` **hereda** de `Persona`, lo que significa que un estudiante tiene un `nombre` y una `edad`, al igual que una persona.
-- Además, `Estudiante` puede **agregar** nuevos atributos (como `carrera`) o **sobrescribir** métodos para comportamientos más específicos.
-
-**Beneficio:** Evita duplicar código y promueve la reutilización.
-
----
-
-### 🔒 Encapsulamiento
-El **encapsulamiento** consiste en proteger los datos internos de una clase y permitir el acceso a ellos únicamente a través de métodos públicos (*getters* y *setters*).
-
-- Los atributos `nombre` y `edad` de la clase `Persona` son `private`, lo que impide modificarlos directamente desde fuera de la clase.
-- En cambio, se accede a ellos mediante métodos públicos como `getNombre()` y `setEdad()`.
-
-**Beneficio:** Mejora la seguridad y el control del acceso a los datos.
+- ✅ Clases abstractas
+- ✅ Herencia
+- ✅ Polimorfismo
+- ✅ Sobrescritura de métodos (`@Override`)
+- ✅ Uso de `ArrayList` para almacenar objetos
 
 ---
 
-### 🎭 Polimorfismo
-El **polimorfismo** permite que diferentes clases respondan de manera distinta a un mismo método, según su propio comportamiento.
+## 📂 Estructura de Clases
 
-- En este proyecto, tanto `Persona` como `Estudiante` tienen un método llamado `saludar()`.
-- Pero en `Estudiante`, el método está **sobrescrito** para mostrar información adicional (la carrera), logrando un comportamiento diferente.
+### 🔹 `MiembroUniversitario` (Clase abstracta)
 
-**Beneficio:** Permite usar un mismo método en distintas clases, pero con resultados adaptados a cada tipo de objeto.
+Esta es la **clase base** de la jerarquía. Representa cualquier miembro de la universidad (estudiante, profesor, etc.).
 
+```java
+public abstract class MiembroUniversitario {
+    private String nombre;
+    private int edad;
 
-
-📘 Estos principios son esenciales para escribir código mantenible, escalable y orientado a objetos.
-
----
-## 📁 Estructura del Proyecto
-
-```bash
-├── Main.java          # Clase principal con el método main()
-├── Persona.java       # Clase base que representa a una persona
-├── Estudiante.java    # Subclase que extiende Persona y añade el atributo 'carrera'
+    // Métodos comunes
+    public void cumplirAnios() {...}
+    public abstract void saludar(); // método abstracto
+}
 ```
-## 🧱 Clases Implementadas
 
-### 🔹 Persona
-**Atributos:**
-- `nombre`
-- `edad`
+#### 🔸 No se puede instanciar directamente. Obliga a las subclases a implementar el método saludar().
 
-**Métodos:**
-- `saludar()`: Muestra un saludo personalizado.
-- `inscripcion()`: Simula una inscripción a la universidad.
-- `cumplirAnios()`: Incrementa la edad de la persona.
+## 🔹 Persona (Subclase concreta de MiembroUniversitario)
+Clase intermedia que representa a cualquier persona concreta.
 
----
+```java
+public class Persona extends MiembroUniversitario {
+    public void inscripcion() {...}
+    public void saludar() {...}
+}
+```
 
-### 🔹 Estudiante (extiende Persona)
-**Atributo adicional:**
-- `carrera`
+## 🔹 Estudiante (Subclase de Persona)
+Clase que extiende de Persona y representa a un estudiante.
 
-**Métodos:**
-- `estudiar()`: Indica que el estudiante está estudiando su carrera.
-- `saludar()`: Sobrescribe el método de la clase padre para incluir la carrera.
+```java
+public class Estudiante extends Persona {
+    private String carrera;
 
----
+    public void estudiar() {...}
+    @Override public void saludar() {...}
+}
+
+```
+
+
+## 🔹 Profesor (Subclase de MiembroUniversitario) 
+Clase que extiende de Persona y representa a un estudiante.
+
+```java
+public class Profesor extends MiembroUniversitario {
+    private String especialidad;
+
+    public void dictarClase() {...}
+    @Override public void saludar() {...}
+}
+
+
+```
 
 ## 🚀 Ejecución del Programa
+La clase Main es la encargada de ejecutar el programa:
 
-El programa crea:
+```java
+ArrayList<MiembroUniversitario> miembros = new ArrayList<>();
+```
 
-- Una persona (`Persona`)
-- Una lista de estudiantes (`ArrayList<Estudiante>`)
+Se agregan instancias de `Estudiante` y `Profesor`, aprovechando el **polimorfismo**:  
+todos son tratados como `MiembroUniversitario`, pero ejecutan su versión específica del método `saludar()`.
 
-Cada estudiante:
+También se usa `instanceof` para verificar el tipo real del objeto y llamar a métodos específicos como:
 
-- Saluda (método sobrescrito)
-- Informa que está estudiando su carrera
+- `estudiar()` si es un `Estudiante`
+- `dictarClase()` si es un `Profesor`
 
 ---
 
-## 📌 Resultados Esperados
+## 🧠 Conceptos Aplicados
 
-Al ejecutar el programa, verás una salida similar a la siguiente:
+| Concepto           | Aplicación                                                                 |
+|--------------------|----------------------------------------------------------------------------|
+| **Clase abstracta** | `MiembroUniversitario` no se puede instanciar directamente                |
+| **Herencia**        | `Estudiante`, `Profesor`, `Persona` heredan de `MiembroUniversitario`     |
+| **Polimorfismo**    | Lista `ArrayList<MiembroUniversitario>` que acepta objetos diferentes      |
+| **Sobrescritura**   | Métodos `saludar()` redefinidos en cada clase hija                         |
+| **Encapsulamiento** | Uso de `private` y getters como `getNombre()`                              |
+
+---
+
+## 🖥️ Ejemplo de salida en consola
 
 ```text
-Hola, soy Juan y tengo 20 años.
-Buen día, mi nombre es Juan y deseo inscribirme a la universidad. Tengo 20 años.
-======================
-Hola, soy Ana, tengo 20 años y estudio Ingeniería.
+Hola, soy Ana,  estudio Ingeniería y tengo 20 años
 Ana está estudiando Ingeniería.
-----------------------
-Hola, soy Luis, tengo 22 años y estudio Medicina.
+------------------------
+Hola, soy Luis,  estudio Medicina y tengo 22 años
 Luis está estudiando Medicina.
-----------------------
-Hola, soy Sofía, tengo 21 años y estudio Derecho.
-Sofía está estudiando Derecho.
-----------------------
+------------------------
+Buen día, soy el profesor Dra. Pérez, especialista en  Biología.
+Dra. Pérez está dictando clase de  Biología.
+------------------------
+Buen día, soy el profesor Dr. Gómez, especialista en  Matemáticas.
+Dr. Gómez está dictando clase de  Matemáticas.
+------------------------
 
 ```
----
 
-## ✍️ Recomendaciones para Seguir Practicando
+## ✍️ Recomendaciones para practicar
 
-- 🔸 **Crear una clase `Universidad`** que administre la lista de estudiantes.
-- 🔸 **Agregar nuevas clases** como `Profesor` o `Curso` para enriquecer el modelo.
-- 🔸 **Implementar interfaces** que representen habilidades o roles, por ejemplo: `Enseñable`, `Evaluable`.
-- 🔸 **Agregar lógica dinámica** para:
-    - Cambiar la carrera de un estudiante.
-    - Hacer que las personas cumplan años en tiempo de ejecución (simular el paso del tiempo).
+A continuación, se sugieren ejercicios y conceptos técnicos clave que te permitirán **reforzar la Programación Orientada a Objetos (POO)** y avanzar hacia el dominio de frameworks profesionales como **Spring Boot**:
+
+### 🧱 Extiende el modelo
+
+- ✅ **Agrega más subclases** como `Administrativo` o `Investigador` que hereden de `MiembroUniversitario`, cada una con comportamientos propios.
+- ✅ **Aplica herencia múltiple mediante interfaces**, como `Asistente`, `Evaluador` o `Mentor`. Implementa métodos abstractos como `asistirEvento()` o `evaluarTrabajo()`.
+
+### 🏛️ Gestión y estructura
+
+- 🏫 **Crea una clase `Universidad`** que tenga una lista de miembros (`ArrayList<MiembroUniversitario>`) y métodos para:
+    - Registrar nuevos miembros.
+    - Listar estudiantes o profesores por criterios.
+    - Contar cuántos hay por tipo.
+
+### 💾 Persistencia de datos
+
+- 📂 **Almacena y recupera información** usando:
+    - Archivos planos (`FileWriter`, `BufferedReader`).
+    - Bases de datos usando **JDBC**, lo cual te prepara para **JPA y Spring Data JPA** en Spring Boot.
+
+### 🧪 Mejora la lógica y separación
+
+- 🔄 **Aplica principios SOLID**:
+    - Separa responsabilidades por clase.
+    - Usa la inversión de dependencias para simular capas (servicio, modelo, repositorio).
+- ✅ Agrega **tests unitarios** con JUnit para simular flujos como inscripción, evaluación o asistencia.
+
+### 🛠️ Prepárate para Spring Boot
+
+- Aprende a estructurar código en **capas**:
+    - `modelo` → tus clases como `Estudiante`
+    - `servicio` → clases que gestionan lógica como inscripción
+    - `repositorio` → clases que acceden a datos
+- Empieza a trabajar con anotaciones simuladas como:
+  ```java
+  //@Entity
+  //@Service
+  //@Repository
 
