@@ -138,9 +138,7 @@ A continuación, se sugieren ejercicios y conceptos técnicos clave que te permi
 
 ### 🧪 Mejora la lógica y separación
 
-- 🔄 **Aplica principios SOLID**:
-    - Separa responsabilidades por clase.
-    - Usa la inversión de dependencias para simular capas (servicio, modelo, repositorio).
+
 - ✅ Agrega **tests unitarios** con JUnit para simular flujos como inscripción, evaluación o asistencia.
 
 ### 🔄 Aplica principios SOLID
