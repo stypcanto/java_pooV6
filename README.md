@@ -145,7 +145,7 @@ A continuación, se sugieren ejercicios y conceptos técnicos clave que te permi
 
 ### 🔄 Aplica principios SOLID
 
-Aplicar los principios **SOLID** te permitirá escribir código más mantenible, escalable y fácil de probar. A continuación, cómo puedes integrarlos a tu modelo actual:
+-  Aplicar los principios **SOLID** te permitirá escribir código más mantenible, escalable y fácil de probar. A continuación, cómo puedes integrarlos a tu modelo actual:
 
 | Principio | Aplicación práctica |
 |----------|---------------------|
