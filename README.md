@@ -143,6 +143,47 @@ A continuación, se sugieren ejercicios y conceptos técnicos clave que te permi
     - Usa la inversión de dependencias para simular capas (servicio, modelo, repositorio).
 - ✅ Agrega **tests unitarios** con JUnit para simular flujos como inscripción, evaluación o asistencia.
 
+### 🔄 Aplica principios SOLID
+
+Aplicar los principios **SOLID** te permitirá escribir código más mantenible, escalable y fácil de probar. A continuación, cómo puedes integrarlos a tu modelo actual:
+
+| Principio | Aplicación práctica |
+|----------|---------------------|
+| **S** - Single Responsibility Principle (Responsabilidad única) | Cada clase debe encargarse de una sola cosa. Por ejemplo, `Estudiante` solo contiene lógica relacionada al estudiante; una nueva clase `InscripcionService` podría manejar la inscripción. |
+| **O** - Open/Closed Principle (Abierto/Cerrado) | Puedes extender clases como `MiembroUniversitario` sin modificarlas. Agrega nuevas clases como `Administrador` sin tocar las anteriores. |
+| **L** - Liskov Substitution Principle | Las clases hijas como `Profesor` o `Estudiante` deben poder usarse sin errores donde se espere un `MiembroUniversitario`. Tu código actual ya lo cumple con polimorfismo. |
+| **I** - Interface Segregation Principle | Crea interfaces pequeñas y específicas, como `Asistente`, `Evaluador`, en lugar de una sola interfaz con muchos métodos. |
+| **D** - Dependency Inversion Principle | Simula capas como en Spring Boot: usa clases como `RepositorioEstudiantes`, `ServicioInscripciones`, etc., que dependan de **abstracciones** (interfaces), no de implementaciones concretas. |
+
+#### 🧪 Ejemplo de separación en capas:
+
+```java
+// Capa modelo
+public class Estudiante extends MiembroUniversitario { ... }
+
+// Capa repositorio (simulada)
+public class RepositorioEstudiantes {
+    public void guardar(Estudiante e) {
+        // Simula guardar en archivo o BD
+    }
+}
+
+// Capa servicio
+public class ServicioEstudiantes {
+    private RepositorioEstudiantes repo;
+
+    public ServicioEstudiantes(RepositorioEstudiantes repo) {
+        this.repo = repo;
+    }
+
+    public void inscribir(Estudiante e) {
+        // Lógica de negocio
+        System.out.println("Inscribiendo estudiante...");
+        repo.guardar(e);
+    }
+}
+```
+
 ### 🛠️ Prepárate para Spring Boot
 
 - Aprende a estructurar código en **capas**:
