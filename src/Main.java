@@ -1,27 +1,27 @@
+// Importación de ArrayList (opcional para usar listas más adelante)
 import java.util.ArrayList;
 
+// Clase principal donde se ejecuta el programa
 public class Main {
     public static void main(String[] args) {
+        // Creamos un objeto de la clase Persona
+        Persona persona = new Persona("Juan", 20);
+        persona.saludar(); // Llama al método saludar() de Persona
+        persona.inscripcion();
 
-        Persona persona1 = new Persona("Juan", 20);
-        Persona persona2 = new Persona("Maria", 21);
-        Persona persona3 = new Persona("Pedro", 22);
-        Persona persona4 = new Persona("Ana", 23);
-        Persona persona5 = new Persona("Jose", 24);
+        // Creamos una lista de estudiantes (objetos tipo Estudiante)
+        ArrayList<Estudiante> ClaseNuevaEstudiante = new ArrayList<>();
 
-        // ✅ Usamos ArrayList para almacenar múltiples personas
-        ArrayList<Persona> personas = new ArrayList<>();
-        personas.add(persona1);
-        personas.add(persona2);
-        personas.add(persona3);
-        personas.add(persona4);
-        personas.add(persona5);
+        // Agregamos estudiantes a la lista
+        ClaseNuevaEstudiante.add(new Estudiante ("Ana", 20, "Ingeniería"));
+        ClaseNuevaEstudiante.add(new Estudiante("Luis", 22, "Medicina"));
+        ClaseNuevaEstudiante.add(new Estudiante("Sofía", 21, "Derecho"));
 
-// ✅ Recorremos la lista e invocamos métodos
-        for (Persona nuevafuncionpersona : personas) {
-            nuevafuncionpersona.saludar();
-            nuevafuncionpersona.cumplirAnios();
-            nuevafuncionpersona.inscripcion();
+        // Recorremos la lista: todos saludan y estudian
+        for (Estudiante est : ClaseNuevaEstudiante) {
+            est.saludar();   // Usa el método @Override de Estudiante
+            est.estudiar();  // Método propio de Estudiante
+            System.out.println("----------------------");
         }
 
     }

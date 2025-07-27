@@ -42,7 +42,7 @@ public class Persona {
     }
 
     public void inscripcion(){
-        System.out.println("Buen dia, mi nombre es "+nombre+" deseo inscribirme a la universidad, tengo "+edad+ "años");
+        System.out.println("Buen dia, mi nombre es "+nombre+" deseo inscribirme a la universidad, tengo "+edad+ " años");
     }
 
 

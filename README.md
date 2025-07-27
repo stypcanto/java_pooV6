@@ -1,184 +1,111 @@
-# 📘 Proyecto Java - Clase `Persona`
 
-Este proyecto es una práctica básica de **Programación Orientada a Objetos (POO)** en Java. Se define una clase `Persona` con atributos privados, métodos de acceso (`get` / `set`), y métodos personalizados para ilustrar el uso de objetos, listas y lógica simple.
+## 🧠 Fundamentos de Programación Orientada a Objetos (POO)
 
----
+### 🔁 Herencia
+La **herencia** permite que una clase (llamada *subclase*) herede atributos y métodos de otra clase (llamada *superclase*).
 
-## 🧠 Conceptos Aplicados
+- En este proyecto, la clase `Estudiante` **hereda** de `Persona`, lo que significa que un estudiante tiene un `nombre` y una `edad`, al igual que una persona.
+- Además, `Estudiante` puede **agregar** nuevos atributos (como `carrera`) o **sobrescribir** métodos para comportamientos más específicos.
 
-- **Clase:** Plantilla para crear objetos.
-- **Objeto:** Instancia de una clase (`persona1`, `persona2`, etc.).
-- **Encapsulamiento:** Atributos privados con acceso mediante métodos públicos.
-- **Constructor:** Inicializa atributos al crear un objeto.
-- **Métodos:** Comportamientos del objeto (`saludar()`, `cumplirAnios()`, etc.).
-- **Colecciones (`ArrayList`):** Lista de objetos manejada dinámicamente.
+**Beneficio:** Evita duplicar código y promueve la reutilización.
 
 ---
 
-## 📄 Código de la Clase `Persona`
+### 🔒 Encapsulamiento
+El **encapsulamiento** consiste en proteger los datos internos de una clase y permitir el acceso a ellos únicamente a través de métodos públicos (*getters* y *setters*).
 
-```java
-public class Persona {
+- Los atributos `nombre` y `edad` de la clase `Persona` son `private`, lo que impide modificarlos directamente desde fuera de la clase.
+- En cambio, se accede a ellos mediante métodos públicos como `getNombre()` y `setEdad()`.
 
-    private String nombre;
-    private int edad;
+**Beneficio:** Mejora la seguridad y el control del acceso a los datos.
 
-    public Persona(String nombre, int edad){
-        this.nombre = nombre;
-        this.edad = edad;
-    }
+---
 
-    public String getNombre(){
-        return nombre;
-    }
+### 🎭 Polimorfismo
+El **polimorfismo** permite que diferentes clases respondan de manera distinta a un mismo método, según su propio comportamiento.
 
-    public void setNombre(String nombre){
-        this.nombre = nombre;
-    }
+- En este proyecto, tanto `Persona` como `Estudiante` tienen un método llamado `saludar()`.
+- Pero en `Estudiante`, el método está **sobrescrito** para mostrar información adicional (la carrera), logrando un comportamiento diferente.
 
-    public int getEdad(){
-        return edad;
-    }
+**Beneficio:** Permite usar un mismo método en distintas clases, pero con resultados adaptados a cada tipo de objeto.
 
-    public void setEdad(int edad){
-        this.edad = edad;
-    }
 
-    public void saludar(){
-        System.out.println("Hola, soy " + nombre + " tengo " + edad + " años");
-    }
 
-    public void inscripcion(){
-        System.out.println("Buen día, mi nombre es " + nombre + 
-        " deseo inscribirme a la universidad, tengo " + edad + " años");
-    }
+📘 Estos principios son esenciales para escribir código mantenible, escalable y orientado a objetos.
 
-    // ✅ Método adicional para practicar lógica
-    public void cumplirAnios(){
-        edad++;
-        System.out.println(nombre + " ha cumplido años. Nueva edad: " + edad);
-    }
-}
+---
+## 📁 Estructura del Proyecto
+
+```bash
+├── Main.java          # Clase principal con el método main()
+├── Persona.java       # Clase base que representa a una persona
+├── Estudiante.java    # Subclase que extiende Persona y añade el atributo 'carrera'
+```
+## 🧱 Clases Implementadas
+
+### 🔹 Persona
+**Atributos:**
+- `nombre`
+- `edad`
+
+**Métodos:**
+- `saludar()`: Muestra un saludo personalizado.
+- `inscripcion()`: Simula una inscripción a la universidad.
+- `cumplirAnios()`: Incrementa la edad de la persona.
+
+---
+
+### 🔹 Estudiante (extiende Persona)
+**Atributo adicional:**
+- `carrera`
+
+**Métodos:**
+- `estudiar()`: Indica que el estudiante está estudiando su carrera.
+- `saludar()`: Sobrescribe el método de la clase padre para incluir la carrera.
+
+---
+
+## 🚀 Ejecución del Programa
+
+El programa crea:
+
+- Una persona (`Persona`)
+- Una lista de estudiantes (`ArrayList<Estudiante>`)
+
+Cada estudiante:
+
+- Saluda (método sobrescrito)
+- Informa que está estudiando su carrera
+
+---
+
+## 📌 Resultados Esperados
+
+Al ejecutar el programa, verás una salida similar a la siguiente:
+
+```text
+Hola, soy Juan y tengo 20 años.
+Buen día, mi nombre es Juan y deseo inscribirme a la universidad. Tengo 20 años.
+======================
+Hola, soy Ana, tengo 20 años y estudio Ingeniería.
+Ana está estudiando Ingeniería.
+----------------------
+Hola, soy Luis, tengo 22 años y estudio Medicina.
+Luis está estudiando Medicina.
+----------------------
+Hola, soy Sofía, tengo 21 años y estudio Derecho.
+Sofía está estudiando Derecho.
+----------------------
 
 ```
-## 🚀 Código de la Clase Main
-```java
-import java.util.ArrayList;
-
-public class Main {
-    public static void main(String[] args) {
-
-        Persona persona1 = new Persona("Juan", 20);
-        Persona persona2 = new Persona("Maria", 21);
-        Persona persona3 = new Persona("Pedro", 22);
-        Persona persona4 = new Persona("Ana", 23);
-        Persona persona5 = new Persona("Jose", 24);
-
-        // ✅ Usamos ArrayList para almacenar múltiples personas
-        ArrayList<Persona> personas = new ArrayList<>();
-        personas.add(persona1);
-        personas.add(persona2);
-        personas.add(persona3);
-        personas.add(persona4);
-        personas.add(persona5);
-
-        // ✅ Recorremos la lista e invocamos métodos
-        for (Persona nuevafuncionpersona : personas) {
-            nuevafuncionpersona.saludar();
-            nuevafuncionpersona.cumplirAnios();
-            nuevafuncionpersona.inscripcion();
-        }
-    }
-}
-
-
-```
-
-## 🧩 Detalles Técnicos
-
-### Clase `Persona`
-
-**🔒 Atributos privados**
-
-- `String nombre`
-- `int edad`
-
-**🧱 Constructor**
-
-- Inicializa `nombre` y `edad` al crear una nueva persona.
-
-**🔄 Getters y Setters**
-
-- `getNombre()`, `setNombre()`
-- `getEdad()`, `setEdad()`
-
-**🔧 Métodos personalizados**
-
-- `saludar()`: Imprime un saludo con el nombre y edad.
-- `inscripcion()`: Simula una inscripción universitaria.
-- `cumplirAnios()`: Incrementa la edad y muestra un mensaje.
-
 ---
 
-### Clase `Main`
+## ✍️ Recomendaciones para Seguir Practicando
 
-- Crea varias instancias de la clase `Persona`.
-- Demuestra el uso de encapsulamiento y métodos públicos.
-- Es útil para practicar la interacción entre objetos y lógica condicional (ampliable).
-
----
-
-## ✅ Ejemplo de Salida
-```plaintext
-Hola, soy Juan tengo 20 años
-Juan ha cumplido años. Nueva edad: 21
-Buen día, mi nombre es Juan deseo inscribirme a la universidad, tengo 21 años
-Hola, soy Maria tengo 21 años
-Maria ha cumplido años. Nueva edad: 22
-Buen día, mi nombre es Maria deseo inscribirme a la universidad, tengo 22 años
-...
-
-```
-
-## 🛠️ Recomendaciones para Practicar
-
-A continuación, se presentan algunas sugerencias para reforzar tus conocimientos en Programación Orientada a Objetos y el uso de colecciones en Java:
-
-- ✅ **Crear el método `esMayorDeEdad()`**  
-  Implementa un método que retorne `true` si la persona tiene 18 años o más, y `false` en caso contrario. Puedes usarlo para aplicar filtros u otras decisiones lógicas.
-
-- ✅ **Leer datos desde el teclado usando `Scanner`**  
-  Permite al usuario ingresar dinámicamente nombres y edades para agregar personas a la lista. Esto mejora la interacción y el manejo de entrada estándar.
-
-- ✅ **Filtrar personas mayores de cierta edad**  
-  Crea una función que recorra el `ArrayList` y muestre solo aquellas personas mayores de 21 años, o cualquier otro umbral definido por el usuario.
-
-- ✅ **Ordenar la lista por edad**  
-  Utiliza `Collections.sort()` junto con un `Comparator` personalizado para ordenar la lista de personas por edad de forma ascendente o descendente.
-
-- ✅ **Crear un registro de estudiantes**  
-  Simula un pequeño sistema de inscripción donde se puedan agregar, eliminar y mostrar estudiantes usando una lista (`ArrayList<Persona>`).
-
-- ✅ **Agregar identificadores únicos**  
-  Agrega un atributo `id` a la clase `Persona` para identificar a cada persona de forma única, útil para registros o búsquedas.
-
-- ✅ **Implementar búsqueda por nombre o edad**  
-  Crea métodos para buscar personas por nombre exacto o por rango de edad.
-
----
-
-## 📚 Temas Aprendidos
-
-Durante el desarrollo de este proyecto se han puesto en práctica los siguientes conceptos clave de Java:
-
-- ⚙️ **Encapsulamiento:** Control de acceso a atributos mediante métodos `get` y `set`.
-- 🧱 **Constructores:** Inicialización de objetos con valores predeterminados.
-- 🔁 **Métodos:** Definición de acciones específicas para los objetos (`saludar()`, `cumplirAnios()`, etc.).
-- 👥 **Interacción entre objetos:** Uso de múltiples instancias de la clase `Persona`.
-- 🔣 **Lógica condicional y secuencial:** Control de flujo mediante estructuras como `if`, `for`, y métodos booleanos.
-- 🔄 **Colecciones dinámicas:** Uso de `ArrayList` para almacenar y manipular grupos de objetos.
-- ♻️ **Reutilización de código:** Organización modular que permite extender funcionalidades sin duplicar código.
-
----
-
+- 🔸 **Crear una clase `Universidad`** que administre la lista de estudiantes.
+- 🔸 **Agregar nuevas clases** como `Profesor` o `Curso` para enriquecer el modelo.
+- 🔸 **Implementar interfaces** que representen habilidades o roles, por ejemplo: `Enseñable`, `Evaluable`.
+- 🔸 **Agregar lógica dinámica** para:
+    - Cambiar la carrera de un estudiante.
+    - Hacer que las personas cumplan años en tiempo de ejecución (simular el paso del tiempo).
 
