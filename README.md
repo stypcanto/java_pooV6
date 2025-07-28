@@ -103,7 +103,7 @@ String clave = "clave123";
 🗑️ Eliminando miembro con ID 5...
 
 📋 Lista de miembros actualizada:
-...
+```
 
 ## 📦 Uso de JDBC
 
@@ -135,6 +135,18 @@ El diseño del proyecto sigue varios principios fundamentales de la Programació
   - `MiembroUniversitarioDAO` gestiona la interacción con la base de datos.
   - `UniversidadService` orquesta la lógica del negocio.
   - Las clases del paquete `modelo` representan entidades del dominio.
+
+
+- Listado de usuarios agregados por el proyecto JDBC
+![Diagrama de clases](./Documents/image1.png)
+
+- Eliminando el ID 5 del usuario, verificando en la ejecución
+ ![Diagrama de clases](./Documents/image3.png)
+
+- Se verifica en la base de datos que efectivamente fue eliminado el usuario
+![Diagrama de clases](./Documents/image2.png)
+
+
 
 ---
 
