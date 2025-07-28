@@ -10,7 +10,6 @@ public class Profesor extends MiembroUniversitario implements Enseñable {
         this.especialidad = especialidad;
     }
 
-    @Override
     public void saludar() {
         System.out.println("Buen día, soy el profesor " + getNombre() + ", especialista en " + especialidad + ".");
     }
@@ -18,5 +17,13 @@ public class Profesor extends MiembroUniversitario implements Enseñable {
     @Override
     public void dictarClase() {
         System.out.println(getNombre() + " está dictando clase de " + especialidad + ".");
+    }
+
+    public String getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
     }
 }

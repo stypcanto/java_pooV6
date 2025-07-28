@@ -1,10 +1,23 @@
-# 🧠 Proyecto de Práctica POO en Java con Principios SOLID
+# 🏛️ Sistema de Gestión Universitaria - Java + PostgreSQL
 
-Este proyecto ejemplifica el uso avanzado de Programación Orientada a Objetos (POO) en Java, aplicando los principios **SOLID**, así como conceptos clave como clases abstractas, interfaces, herencia, polimorfismo y encapsulamiento.
+Este proyecto implementa un sistema de gestión de miembros universitarios (profesores y estudiantes) aplicando los principios de **Programación Orientada a Objetos (POO)** en Java, y persistiendo los datos mediante **JDBC** y una base de datos **PostgreSQL**.
+
+
+---
+## ⚙️ Tecnologías Usadas
+
+- **Java 17**
+- **JDBC (Java Database Connectivity)**
+- **PostgreSQL 15**
+- **Docker & Docker Compose**
+- **IntelliJ IDEA** (IDE recomendada)
 
 ---
 
-## 📁 Estructura del Proyecto
+
+## 🧱 Estructura del Proyecto
+
+
 
 ```bash
 src/
@@ -26,160 +39,135 @@ src/
 
 ---
 
-## 🧱 Clases e Interfaces
+---
 
-### 🔹 `MiembroUniversitario` (clase abstracta)
-Clase base que **no puede instanciarse directamente**.
+## 🚀 Características
 
-- Define atributos comunes como `nombre` y `edad`.
-- Implementa la interfaz `Saludable`.
-- Contiene el método `cumplirAnios()`.
-- Obliga a sus subclases a implementar `saludar()`.
+- Registro de miembros (profesores y estudiantes).
+- Listado de todos los miembros registrados.
+- Eliminación de un miembro por ID.
+- Persistencia en base de datos PostgreSQL usando JDBC.
+- Diseño orientado a objetos con herencia e interfaces.
+- Separación en capas: modelo, DAO, servicio y presentación.
+
+---
+
+## 🔧 Requisitos
+
+- Java 17 o superior
+- PostgreSQL instalado (o Docker)
+- IntelliJ IDEA, VS Code u otro IDE
+- Driver JDBC para PostgreSQL (`postgresql-42.7.2.jar`)
+
+---
+
+## 🛠️ Configuración de la Base de Datos
+
+1. **Crear la base de datos**
+```sql
+CREATE DATABASE universidad;
+```
+2. Crear tabla
+  ```sql
+CREATE TABLE miembro_universitario (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(100),
+    edad INT,
+    tipo VARCHAR(50), -- Profesor o Estudiante
+    carrera_o_curso VARCHAR(100)
+);
+``` 
+3. Conexión en ConexionBD.java
 
 ```java
-public abstract class MiembroUniversitario implements Saludable {
-    // Atributos y métodos comunes
-}
-```
-
-## 🔹 Interfaces
-
-| Interfaz     | Método requerido | Implementada por        |
-|--------------|------------------|--------------------------|
-| `Saludable`  | `saludar()`      | `MiembroUniversitario`  |
-| `Estudiable` | `estudiar()`     | `Estudiante`            |
-| `Enseñable`  | `dictarClase()`  | `Profesor`              |
-
----
-
-## 🔹 Clases concretas
-
-- `Estudiante` extiende `MiembroUniversitario` e implementa la interfaz `Estudiable`.
-- `Profesor` extiende `MiembroUniversitario` e implementa la interfaz `Enseñable`.
-- Cada clase sobrescribe el método `saludar()` de forma personalizada para mostrar un comportamiento específico según el rol del miembro universitario.
-
----
-
-## 🛠️ Servicio
-
-### `UniversidadService.java`
-
-- Aplica el principio de **Responsabilidad Única (SRP)**.
-- Su función es **procesar una lista de miembros universitarios**.
-```java
-public void procesarMiembros(List<MiembroUniversitario> miembros)
+String url = "jdbc:postgresql://localhost:5432/universidad";
+String usuario = "usuario";
+String clave = "clave123";
 
 ```
-- Utiliza polimorfismo e interfaces para determinar el comportamiento correcto según el tipo de objeto (`Estudiante`, `Profesor`, etc.).
-- Se apoya en `SaludoPrinter` para desacoplar la lógica de presentación.
 
-```java
-public class UniversidadService {
-    public void procesarMiembros(List<MiembroUniversitario> miembros) {
-        for (MiembroUniversitario miembro : miembros) {
-            miembro.saludar();
+## ▶️ Ejecución
+1. Compila el proyecto en tu IDE o desde terminal.
 
-            if (miembro instanceof Estudiable) {
-                ((Estudiable) miembro).estudiar();
-            }
+2. Ejecuta la clase Main.java.
 
-            if (miembro instanceof Enseñable) {
-                ((Enseñable) miembro).dictarClase();
-            }
-        }
-    }
-}
-```
+3. Se insertarán datos de prueba y se eliminará un miembro por ID.
 
+##  🖥️ Ejemplo de salida
 
+```yaml
+✅ Miembro insertado correctamente.
+📋 Lista de miembros:
+- ID: 1, Nombre: Laura Torres, Edad: 22, Tipo: Estudiante, Carrera/Curso: Ingeniería de Sistemas
 
-## 🖨️ Utilidad
+🗑️ Eliminando miembro con ID 5...
 
-### `SaludoPrinter.java`
+📋 Lista de miembros actualizada:
+...
 
-- Clase encargada **únicamente de mostrar saludos en consola**.
-- Aplica el **principio de inversión de dependencias (DIP)** al separar la lógica de presentación de la lógica del servicio.
-- Esta clase puede ser modificada o reemplazada sin afectar la lógica principal de negocio.
+## 📦 Uso de JDBC
 
-```java
-public class SaludoPrinter {
-    public void imprimirSaludo(String mensaje) {
-        System.out.println(mensaje);
-    }
-}
-```
+Este proyecto **no utiliza frameworks ORM** como Hibernate ni plataformas como Spring. En su lugar, emplea **JDBC puro** para conectarse y realizar operaciones sobre una base de datos PostgreSQL. Esto permite al desarrollador:
 
-## 🧪 Ejecución
+- Comprender a bajo nivel cómo funciona el acceso a datos.
+- Controlar directamente la apertura y cierre de conexiones, manejo de `PreparedStatement`, `ResultSet`, etc.
+- Aplicar prácticas básicas de optimización SQL y evitar sobreingeniería para proyectos pequeños o educativos.
 
-- Main.java
-```java
-public class Main {
-    public static void main(String[] args) {
-        List<MiembroUniversitario> miembros = new ArrayList<>();
-        miembros.add(new Estudiante("Ana", 20, "Sistemas"));
-        miembros.add(new Profesor("Dr. Pérez", 45, "Matemáticas"));
-
-        UniversidadService universidadService = new UniversidadService();
-        universidadService.procesarMiembros(miembros);
-    }
-}
-```
-## 🧠 Conceptos Aplicados
-
-| Concepto           | Implementación                                                                 |
-|--------------------|--------------------------------------------------------------------------------|
-| Clase abstracta    | `MiembroUniversitario` no puede instanciarse directamente                      |
-| Herencia           | `Estudiante`, `Profesor` extienden de `MiembroUniversitario`                   |
-| Polimorfismo       | Se usa `List<MiembroUniversitario>` para almacenar objetos heterogéneos        |
-| Interfaces         | Contratos como `Estudiable`, `Enseñable`, `Saludable` para comportamientos     |
-| Encapsulamiento    | Uso de atributos `private` y acceso mediante getters                           |
-| Principios SOLID   | SRP, DIP aplicados en clases como `UniversidadService` y `SaludoPrinter`       |
-
+> ✅ Esta decisión es ideal para quienes están comenzando con Java y desean dominar primero los fundamentos de la conexión y persistencia de datos.
 
 ---
 
-## ✅ Recomendaciones para Profundizar
+## 📚 Principios de Programación Aplicados
 
-- 🔸 Crea nuevas subclases como `Administrativo`, `Investigador`, etc.
-- 🔸 Añade interfaces como `Evaluador`, `Coordinador`, etc.
-- 🔸 Usa patrones de diseño como:
-  - Factory Pattern (para crear diferentes tipos de miembros)
-  - Strategy Pattern (para estrategias de evaluación o enseñanza)
-- 🔸 Simula persistencia:
-  - Guarda y lee miembros desde archivos `.txt` o `.csv`
-  - Usa **JDBC** para conexión real con una base de datos
-- 🔸 Organiza en capas:
-  - `modelo` → Clases del dominio
-  - `servicio` → Reglas de negocio
-  - `vista` → Presentación o consola
-- 🔸 Agrega pruebas automatizadas:
-  - Usa **JUnit** para probar comportamientos
-  - Aplica TDD en nuevos desarrollos
+El diseño del proyecto sigue varios principios fundamentales de la Programación Orientada a Objetos (POO):
 
----
+- **Herencia:**  
+  Las clases `Estudiante` y `Profesor` heredan de `MiembroUniversitario`, compartiendo atributos comunes como `nombre` y `edad`, y especializando su comportamiento.
 
-## 🚀 Siguiente paso: Migrar a Spring Boot
+- **Interfaces:**  
+  Se definen `Estudiable` y `Ensenable`, permitiendo aplicar **polimorfismo** y garantizar contratos de comportamiento.
 
-Una vez dominados los conceptos anteriores, este proyecto puede evolucionar a una arquitectura moderna con Spring Boot:
+- **Encapsulamiento:**  
+  Todos los atributos están declarados como `private` y se accede a ellos mediante métodos `get` y `set`, protegiendo la integridad del estado interno.
 
-| Aspecto                        | En Spring Boot                                     |
-|-------------------------------|----------------------------------------------------|
-| Separación en capas           | `@Controller`, `@Service`, `@Repository`           |
-| Inyección de dependencias     | `@Autowired`, `@Component`                         |
-| Persistencia real             | Con `Spring Data JPA` y entidades @Entity          |
-| Controladores REST            | `@RestController`, `@GetMapping`, `@PostMapping`   |
-| DevTools & Testing            | `spring-boot-devtools`, `spring-boot-starter-test`|
-
-> 📌 Comprender bien la **POO en Java** te da una gran ventaja para dominar frameworks modernos como **Spring Boot**.
+- **Responsabilidad Única (SRP):**  
+  Cada clase tiene una única función:
+  - `MiembroUniversitarioDAO` gestiona la interacción con la base de datos.
+  - `UniversidadService` orquesta la lógica del negocio.
+  - Las clases del paquete `modelo` representan entidades del dominio.
 
 ---
 
-## 📚 Recursos Recomendados
+## 💡 Posibles Mejoras Futuras
 
-- [Java Brains - Spring Boot Series](https://www.youtube.com/user/koushks)
-- [Clean Code - Robert C. Martin](https://www.oreilly.com/library/view/clean-code/9780136083238/)
-- [Documentación oficial de Spring Boot](https://spring.io/projects/spring-boot)
-- [Refactoring Guru - SOLID Principles](https://refactoring.guru/design-patterns)
+A continuación, se describen algunas mejoras técnicas que se podrían implementar para escalar o robustecer el sistema:
 
----
+### 1. 🖥️ Interfaz Gráfica (GUI) o Web
 
+- Crear una interfaz **Swing o JavaFX** para el manejo visual de los miembros.
+- Alternativamente, migrar a una **aplicación web** usando Servlets, JSP o frameworks como Spring Boot + Thymeleaf/React.
+
+### 2. ✏️ Funcionalidad de Actualización (UPDATE)
+
+- Agregar métodos en `MiembroUniversitarioDAO` y `UniversidadService` para modificar un registro existente (por ID).
+- Incluir validaciones previas a la actualización para asegurar consistencia.
+
+### 3. 🔄 Abstracción DAO
+
+- Crear una interfaz genérica `BaseDAO<T>` con métodos `insertar`, `listar`, `eliminar`, `actualizar`.
+- Implementar esta interfaz desde `MiembroUniversitarioDAO`, facilitando pruebas unitarias y reutilización del patrón DAO.
+
+### 4. ✅ Validación de Datos
+
+- Validar entradas del usuario desde consola, GUI o formularios web.
+- Asegurar que edades sean valores positivos, nombres no estén vacíos, y el tipo sea válido (`Profesor` o `Estudiante`).
+
+### 5. 🧪 Pruebas Unitarias
+
+- Añadir pruebas usando **JUnit 5** para la lógica de `UniversidadService`.
+- Simular operaciones de base de datos con **H2 en memoria** para pruebas de integración.
+
+### 6. 📁 Persistencia avanzada
+
+- Añadir soporte para relaciones 1:N, por ejemplo: un profesor con múltiples cursos.
+- Incluir más entidades (Curso, Aula, Horario) y relaciones entre ellas.

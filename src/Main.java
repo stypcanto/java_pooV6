@@ -1,25 +1,52 @@
-import modelo.Estudiante;
-import modelo.Profesor;
-import modelo.MiembroUniversitario;
 import Servicio.UniversidadService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        UniversidadService service = new UniversidadService();
 
-        // Creamos una lista con miembros de diferentes tipos
-        List<MiembroUniversitario> miembros = new ArrayList<>();
-        miembros.add(new Estudiante("Ana", 20, "Ingeniería de Sistemas"));
-        miembros.add(new Estudiante("Carlos", 21, "Medicina"));
-        miembros.add(new Profesor("Dra. Martínez", 45, "Biología"));
-        miembros.add(new Profesor("Dr. González", 52, "Matemáticas"));
+/*
+        // Profesores
+        service.registrarMiembro("Dr. Carlos Pérez", 45, "Profesor", "Matemática");
+        service.registrarMiembro("Dra. Ana Gómez", 50, "Profesor", "Biología");
+        service.registrarMiembro("Mg. Luis Torres", 39, "Profesor", "Física");
+        service.registrarMiembro("Ing. Sandra Díaz", 42, "Profesor", "Sistemas");
+        service.registrarMiembro("Dr. Jorge Herrera", 47, "Profesor", "Historia");
 
-        // Creamos el servicio que se encargará de operar sobre los miembros
-        UniversidadService universidadService = new UniversidadService();
+        // Estudiantes
+        service.registrarMiembro("Laura Torres", 22, "Estudiante", "Ingeniería de Sistemas");
+        service.registrarMiembro("Pedro Rojas", 20, "Estudiante", "Arquitectura");
+        service.registrarMiembro("Camila Fernández", 21, "Estudiante", "Psicología");
+        service.registrarMiembro("José Martínez", 23, "Estudiante", "Administración");
+        service.registrarMiembro("Lucía Castro", 19, "Estudiante", "Enfermería");
 
-        // Ejecutamos la lógica usando polimorfismo e interfaces
-        universidadService.procesarMiembros(miembros);
+        // Más profesores
+        service.registrarMiembro("Dra. Beatriz Lozano", 55, "Profesor", "Química");
+        service.registrarMiembro("Ing. Marcos Luján", 41, "Profesor", "Electrónica");
+
+        // Más estudiantes
+        service.registrarMiembro("Andrés Mejía", 24, "Estudiante", "Derecho");
+        service.registrarMiembro("Gabriela Chávez", 20, "Estudiante", "Contabilidad");
+        service.registrarMiembro("Fernando Paredes", 22, "Estudiante", "Medicina");
+
+        // Mostrar miembros registrados
+        service.mostrarMiembros();
+*/
+
+        // Luego llamas al método para eliminar
+        System.out.println("\n🗑️ Eliminando miembro con ID 5 correspondiente a Ing. sandra Diaz");
+        service.eliminarMiembroPorId(5);
+
+        // Mostrar para confirmar
+        System.out.println("\n📋 Lista de miembros actualizada:");
+        service.mostrarMiembros();
+
+
+     /*
+        // 🔁 MOSTRAR NUEVAMENTE PARA CONFIRMAR
+        System.out.println("\n📋 Lista de miembros actualizada:");
+        service.mostrarMiembros();
+
+        */
+
     }
 }

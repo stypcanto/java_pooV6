@@ -1,4 +1,5 @@
 package modelo;
+
 import interfaces.Estudiable;
 
 public class Estudiante extends MiembroUniversitario implements Estudiable {
@@ -9,7 +10,6 @@ public class Estudiante extends MiembroUniversitario implements Estudiable {
         this.carrera = carrera;
     }
 
-    @Override
     public void saludar() {
         System.out.println("Hola, soy " + getNombre() + ", estudio " + carrera + " y tengo " + getEdad() + " años.");
     }
@@ -17,5 +17,13 @@ public class Estudiante extends MiembroUniversitario implements Estudiable {
     @Override
     public void estudiar() {
         System.out.println(getNombre() + " está estudiando " + carrera + ".");
+    }
+
+    public String getCarrera() {
+        return carrera;
+    }
+
+    public void setCarrera(String carrera) {
+        this.carrera = carrera;
     }
 }
